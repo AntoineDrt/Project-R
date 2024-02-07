@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="Pierce" load_steps=2 format=3 uid="uid://h2pw52vxp24e"]
+
+[ext_resource type="Script" path="res://upgrades/upgradeList/behaviorEffects/pierce/pierce.resource.gd" id="1_8ri4b"]
+
+[resource]
+script = ExtResource("1_8ri4b")

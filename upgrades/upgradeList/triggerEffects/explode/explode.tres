@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ExplodeOnHit" load_steps=2 format=3 uid="uid://c143xeqoi8dx8"]
+
+[ext_resource type="Script" path="res://upgrades/upgradeList/triggerEffects/explode/explode.resource.gd" id="1_atprg"]
+
+[resource]
+script = ExtResource("1_atprg")

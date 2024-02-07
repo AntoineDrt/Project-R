@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqk6qkvlkmema"]
+
+[ext_resource type="Script" path="res://loot/loot.gd" id="1_r0ov3"]
+[ext_resource type="Texture2D" uid="uid://dlqwb2m4u0rby" path="res://assets/equipment/weapons/staffs/base_ice_staff.png" id="2_wm227"]
+[ext_resource type="PackedScene" uid="uid://c4lxm67wg26dv" path="res://components/interactionArea/interactionArea.tscn" id="3_ee5c3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5j6dr"]
+radius = 12.0
+
+[node name="Loot" type="Node2D"]
+script = ExtResource("1_r0ov3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, 17)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_wm227")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(0.3, 0.3)
+text = "Test Item"
+
+[node name="InteractionArea" parent="." instance=ExtResource("3_ee5c3")]
+position = Vector2(10, 17)
+input_pickable = false
+instructionText = "[F] Pick up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_5j6dr")
+
+[connection signal="playerAccepted" from="InteractionArea" to="." method="_on_interaction_area_player_accepted"]

@@ -1,0 +1,293 @@
+[gd_scene load_steps=37 format=3 uid="uid://d2b8p2q41wbvc"]
+
+[ext_resource type="Script" path="res://creatures/player/player.gd" id="1_ln761"]
+[ext_resource type="Script" path="res://creatures/creature.resource.gd" id="2_yx44a"]
+[ext_resource type="Script" path="res://creatures/player/equipment.gd" id="3_15luu"]
+[ext_resource type="Script" path="res://components/hurtbox/hurtbox.gd" id="4_lnrai"]
+[ext_resource type="PackedScene" uid="uid://c4axmbir5cu11" path="res://components/hand/hand.tscn" id="5_717oa"]
+[ext_resource type="Shader" path="res://assets/shaders/hit_flash.gdshader" id="5_p0371"]
+[ext_resource type="Script" path="res://creatures/player/LootZone.gd" id="6_3ib72"]
+[ext_resource type="Texture2D" uid="uid://chshdym6uvdyk" path="res://assets/character/player.png" id="6_4fknt"]
+[ext_resource type="Script" path="res://creatures/player/appearance.gd" id="7_ux2wx"]
+[ext_resource type="PackedScene" uid="uid://ldp28is6fxrw" path="res://assets/particles/walkingTrail.tscn" id="8_vvehj"]
+[ext_resource type="Script" path="res://creatures/player/Camera.gd" id="10_oq1jm"]
+[ext_resource type="PackedScene" uid="uid://duvmcqlya7mao" path="res://components/inputMovement/inputMovement.tscn" id="13_ef73x"]
+
+[sub_resource type="Resource" id="Resource_wn0kw"]
+script = ExtResource("2_yx44a")
+level = 1
+maxHp = 100.0
+currentHp = 100.0
+damage = 0.0
+armor = 0.0
+magicResistance = 0.0
+attackSpeed = 0.0
+movementSpeed = 0.0
+criticalChance = 0.0
+cooldownReduction = 0.0
+acceleration = 0.0
+
+[sub_resource type="Resource" id="Resource_3xahq"]
+script = ExtResource("3_15luu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qq04f"]
+resource_local_to_scene = true
+shader = ExtResource("5_p0371")
+shader_parameter/hit_opacity = 2.08165e-12
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4mrva"]
+radius = 2.99998
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v6c38"]
+radius = 24.0208
+
+[sub_resource type="Animation" id="Animation_w33vt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearance:material:shader_parameter/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.08165e-12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("appearance:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("appearance:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(4, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rpfvd"]
+resource_name = "death"
+length = 0.80001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearance:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(10, 0), Vector2i(11, 0), Vector2i(12, 0), Vector2i(13, 0), Vector2i(14, 0), Vector2i(15, 0), Vector2i(16, 0), Vector2i(17, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hgttg"]
+resource_name = "idle"
+length = 0.70001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearance:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_2lyou"]
+resource_name = "run"
+length = 0.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearance:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0), Vector2i(8, 0), Vector2i(9, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ww4dw"]
+resource_name = "take_hit"
+length = 0.30001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearance:material:shader_parameter/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [2.08165e-12, 1.0, 2.08165e-12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksg6g"]
+_data = {
+"RESET": SubResource("Animation_w33vt"),
+"death": SubResource("Animation_rpfvd"),
+"idle": SubResource("Animation_hgttg"),
+"run": SubResource("Animation_2lyou"),
+"take_hit": SubResource("Animation_ww4dw")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c3euf"]
+animation = &"death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l3dif"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ss7lo"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i3xkg"]
+animation = &"take_hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u7wij"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rsyqt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uilmx"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7wh6a"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0bqcp"]
+advance_mode = 2
+advance_condition = &"take_hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m3fmh"]
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_btx7m"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5el7o"]
+states/End/position = Vector2(901.5, 98.75)
+states/death/node = SubResource("AnimationNodeAnimation_c3euf")
+states/death/position = Vector2(378.163, -37.4075)
+states/idle/node = SubResource("AnimationNodeAnimation_l3dif")
+states/idle/position = Vector2(377.429, 108.99)
+states/run/node = SubResource("AnimationNodeAnimation_ss7lo")
+states/run/position = Vector2(638.01, 107.74)
+states/take_hit/node = SubResource("AnimationNodeAnimation_i3xkg")
+states/take_hit/position = Vector2(673.033, -37.4075)
+transitions = ["take_hit", "death", SubResource("AnimationNodeStateMachineTransition_u7wij"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_rsyqt"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_uilmx"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_7wh6a"), "run", "take_hit", SubResource("AnimationNodeStateMachineTransition_0bqcp"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_m3fmh"), "take_hit", "run", SubResource("AnimationNodeStateMachineTransition_btx7m")]
+graph_offset = Vector2(61.1581, -131.545)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_blk1f"]
+radius = 5.0
+height = 15.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(213, 121)
+rotation = -6.28319
+collision_layer = 8
+script = ExtResource("1_ln761")
+stats = SubResource("Resource_wn0kw")
+equipment = SubResource("Resource_3xahq")
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+script = ExtResource("10_oq1jm")
+
+[node name="WalkingTrail" parent="." instance=ExtResource("8_vvehj")]
+position = Vector2(-2.67983e-05, 6)
+rotation = -3.14159
+scale = Vector2(0.05, 0.05)
+
+[node name="appearance" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_qq04f")
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_4fknt")
+hframes = 18
+frame = 4
+script = ExtResource("7_ux2wx")
+
+[node name="LeftHand" parent="appearance" instance=ExtResource("5_717oa")]
+unique_name_in_owner = true
+position = Vector2(5.99996, 9.00002)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.00001, 7.99998)
+shape = SubResource("CircleShape2D_4mrva")
+
+[node name="LootZone" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("6_3ib72")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LootZone"]
+shape = SubResource("CircleShape2D_v6c38")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ksg6g")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ksg6g")
+}
+tree_root = SubResource("AnimationNodeStateMachine_5el7o")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_dead = false
+parameters/conditions/is_idle = false
+parameters/conditions/is_moving = false
+parameters/conditions/take_hit = false
+
+[node name="InputMovement" parent="." node_paths=PackedStringArray("animationTree", "walkingTrail", "appearance") instance=ExtResource("13_ef73x")]
+animationTree = NodePath("../AnimationTree")
+walkingTrail = NodePath("../WalkingTrail")
+appearance = NodePath("../appearance")
+
+[node name="HurtBox" type="Area2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+collision_layer = 512
+collision_mask = 2
+input_pickable = false
+script = ExtResource("4_lnrai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-1.00003, 2.99998)
+shape = SubResource("CapsuleShape2D_blk1f")
+
+[connection signal="hitTaken" from="HurtBox" to="." method="_on_hurt_box_hit_taken"]
+[connection signal="hitTaken" from="HurtBox" to="AnimationPlayer" method="_on_hit_taken"]

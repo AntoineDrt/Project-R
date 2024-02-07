@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://dg6cqqne5cpsc"]
+
+[ext_resource type="Texture2D" uid="uid://bg0xcc1wjp8jd" path="res://assets/effects/IMPACT AND DASH FREE/ImpactMedium1.png" id="1_4b00x"]
+[ext_resource type="Script" path="res://components/impact/impact.gd" id="1_jj8n6"]
+
+[sub_resource type="Animation" id="Animation_y62qx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Impact:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mnloc"]
+resource_name = "impact"
+length = 0.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Impact:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"destroy"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxh6o"]
+_data = {
+"RESET": SubResource("Animation_y62qx"),
+"impact": SubResource("Animation_mnloc")
+}
+
+[node name="Impact" type="Node2D"]
+top_level = true
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_jj8n6")
+
+[node name="Impact" type="Sprite2D" parent="."]
+position = Vector2(-7, -12)
+texture = ExtResource("1_4b00x")
+flip_h = true
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gxh6o")
+}
+speed_scale = 2.0

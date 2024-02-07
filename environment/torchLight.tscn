@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://buuyn881nxrd"]
+
+[ext_resource type="Script" path="res://environment/torchLight.gd" id="1_rueca"]
+
+[sub_resource type="Gradient" id="Gradient_ypyie"]
+offsets = PackedFloat32Array(0.767896, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sng3a"]
+gradient = SubResource("Gradient_ypyie")
+use_hdr = true
+fill = 1
+
+[node name="TorchLight" type="PointLight2D"]
+position = Vector2(403.5, 378)
+scale = Vector2(5.04688, 5.375)
+color = Color(0.968627, 0.792157, 0.27451, 1)
+texture = SubResource("GradientTexture2D_sng3a")
+script = ExtResource("1_rueca")

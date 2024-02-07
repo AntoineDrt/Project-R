@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EquipmentResource" load_steps=5 format=3 uid="uid://qds2h11o4yug"]
+
+[ext_resource type="Script" path="res://items/equipment/equipment.resource.gd" id="1_27iyi"]
+[ext_resource type="Script" path="res://creatures/stats.resource.gd" id="2_gt7gp"]
+[ext_resource type="Texture2D" uid="uid://df2n5aculnj82" path="res://addons/gloot/images/icon_inventory.svg" id="2_qj7ji"]
+
+[sub_resource type="Resource" id="Resource_oxmiu"]
+script = ExtResource("2_gt7gp")
+damage = 0.0
+armor = 0.0
+magicResistance = 0.0
+attackSpeed = 10.0
+movementSpeed = 0.0
+criticalChance = 0.0
+cooldownReduction = 10.0
+acceleration = 0.0
+
+[resource]
+script = ExtResource("1_27iyi")
+stats = SubResource("Resource_oxmiu")
+type = 1
+isEquiped = false
+name = "Mage Hat"
+sprite = ExtResource("2_qj7ji")
+description = "That's a hat"

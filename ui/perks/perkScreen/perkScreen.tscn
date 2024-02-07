@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpq0jyx3b3vqr"]
+
+[ext_resource type="Script" path="res://ui/perks/perkScreen/perkScreen.gd" id="1_4icwg"]
+[ext_resource type="PackedScene" uid="uid://7l4n51sme24" path="res://ui/perks/perkCard/perkCard.tscn" id="1_mxj04"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p5vl"]
+bg_color = Color(0.321569, 0.145098, 0.27451, 0.588235)
+
+[node name="PerkScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4icwg")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1718.0
+offset_bottom = -958.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0p5vl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = 4.0
+offset_right = -23.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PerkCard" parent="Panel/HBoxContainer" instance=ExtResource("1_mxj04")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PerkCard2" parent="Panel/HBoxContainer" instance=ExtResource("1_mxj04")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PerkCard3" parent="Panel/HBoxContainer" instance=ExtResource("1_mxj04")]
+layout_mode = 2
+size_flags_horizontal = 3

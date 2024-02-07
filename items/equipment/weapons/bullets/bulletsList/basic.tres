@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="ProjectileResource" load_steps=14 format=3 uid="uid://druj8dbvyom4x"]
+
+[ext_resource type="Script" path="res://upgrades/upgradeList/triggerEffects/explode/explode.resource.gd" id="1_1ccs7"]
+[ext_resource type="Script" path="res://upgrades/upgradeList/behaviorEffects/pierce/pierce.resource.gd" id="1_v84qo"]
+[ext_resource type="PackedScene" uid="uid://eahnq187tjqa" path="res://items/equipment/weapons/bullets/bullet.tscn" id="2_0bc3c"]
+[ext_resource type="Script" path="res://upgrades/upgradeList/triggerEffects/duplicate/duplicate.resource.gd" id="2_kchb3"]
+[ext_resource type="Script" path="res://items/equipment/weapons/bullets/bullet.resource.gd" id="2_tkqjo"]
+[ext_resource type="Texture2D" uid="uid://d0q5qdkurqbe4" path="res://assets/equipment/projectiles/Laser Sprites/01.png" id="3_5q4ml"]
+
+[sub_resource type="Resource" id="Resource_40hu1"]
+script = ExtResource("1_v84qo")
+
+[sub_resource type="Resource" id="Resource_am087"]
+script = ExtResource("1_v84qo")
+
+[sub_resource type="Resource" id="Resource_uiq2n"]
+script = ExtResource("2_kchb3")
+
+[sub_resource type="Resource" id="Resource_s2n5q"]
+script = ExtResource("1_1ccs7")
+
+[sub_resource type="Resource" id="Resource_rbfge"]
+script = ExtResource("1_1ccs7")
+
+[sub_resource type="Resource" id="Resource_rn07c"]
+script = ExtResource("1_1ccs7")
+
+[sub_resource type="Resource" id="Resource_o3atr"]
+script = ExtResource("2_kchb3")
+
+[resource]
+script = ExtResource("2_tkqjo")
+sprite = ExtResource("3_5q4ml")
+scene = ExtResource("2_0bc3c")
+speed = 400.0
+velocity = Vector2(0, 0)
+lifetime = 1.0
+scale = Vector2(0.5, 0.5)
+amount = 1
+numberOfImpacts = 1
+onHit = Array[Resource("res://upgrades/upgradeList/triggerEffects/triggerEffect.resource.gd")]([SubResource("Resource_rbfge"), SubResource("Resource_rn07c"), SubResource("Resource_o3atr")])
+onFire = Array[Resource("res://upgrades/upgradeList/triggerEffects/triggerEffect.resource.gd")]([SubResource("Resource_uiq2n"), SubResource("Resource_s2n5q")])
+behaviors = Array[Resource("res://upgrades/upgradeList/behaviorEffects/behavior.resource.gd")]([SubResource("Resource_40hu1"), SubResource("Resource_am087")])

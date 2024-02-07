@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvhsh4lvthd3"]
+
+[ext_resource type="Script" path="res://upgrades/upgradeList/triggerEffects/explode/explosion.gd" id="1_axje4"]
+[ext_resource type="Texture2D" uid="uid://h5ayonqv7ehh" path="res://assets/effects/2D explosions/explosion.png" id="2_vuk2x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cdq6a"]
+radius = 28.0
+
+[sub_resource type="Animation" id="Animation_qcn3x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rgyky"]
+resource_name = "explode"
+length = 0.60001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"destroy"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qbtp0"]
+_data = {
+"RESET": SubResource("Animation_qcn3x"),
+"explode": SubResource("Animation_rgyky")
+}
+
+[node name="Explosion" type="Area2D"]
+collision_layer = 4
+collision_mask = 256
+script = ExtResource("1_axje4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.54972e-06, -1.99676e-06)
+scale = Vector2(1.5625, 1.625)
+texture = ExtResource("2_vuk2x")
+hframes = 7
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cdq6a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qbtp0")
+}
+speed_scale = 3.0

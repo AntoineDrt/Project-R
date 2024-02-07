@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://4kj6xb17jhrq"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_kvkag"]
+[ext_resource type="PackedScene" uid="uid://6lf6knj8wvam" path="res://gameMechanics/mapManager/map_manager.tscn" id="1_wijm4"]
+[ext_resource type="Script" path="res://creatures/creature.resource.gd" id="3_6y1tm"]
+[ext_resource type="Resource" uid="uid://b2drkcotxa8o8" path="res://items/equipment/weapons/staffs/staffList/magic.tres" id="3_8fevs"]
+[ext_resource type="PackedScene" uid="uid://d2b8p2q41wbvc" path="res://creatures/player/player.tscn" id="4_1f2eo"]
+[ext_resource type="Resource" uid="uid://qds2h11o4yug" path="res://items/equipment/armours/helmets/hat.tres" id="5_2vwty"]
+[ext_resource type="PackedScene" uid="uid://bsfshp321xubw" path="res://ui/ui.tscn" id="6_mou0t"]
+
+[sub_resource type="Resource" id="Resource_wexsc"]
+script = ExtResource("3_6y1tm")
+level = 1
+maxHp = 100.0
+currentHp = 100.0
+damage = 0.0
+armor = 0.0
+magicResistance = 0.0
+attackSpeed = 1.0
+movementSpeed = 150.0
+criticalChance = 0.0
+cooldownReduction = 0.0
+acceleration = 100.0
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_kvkag")
+
+[node name="Player" parent="." instance=ExtResource("4_1f2eo")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(214, 122)
+rotation = -4.46638e-06
+stats = SubResource("Resource_wexsc")
+inventory = Array[Resource("res://items/item.resource.gd")]([ExtResource("3_8fevs"), ExtResource("5_2vwty")])
+
+[node name="MapManager" parent="." instance=ExtResource("1_wijm4")]
+
+[node name="UI" parent="." instance=ExtResource("6_mou0t")]

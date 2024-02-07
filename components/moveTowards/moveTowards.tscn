@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://jrxx7ghhlmlm"]
+
+[ext_resource type="Script" path="res://components/moveTowards/moveTowards.gd" id="1_4g4tl"]
+
+[node name="MoveTowards" type="Node2D"]
+script = ExtResource("1_4g4tl")
+
+[node name="RefreshPathFinding" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Pathfinder" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+
+[connection signal="timeout" from="RefreshPathFinding" to="." method="_on_refresh_path_finding_timeout"]

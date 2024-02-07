@@ -1,0 +1,356 @@
+[gd_scene load_steps=17 format=3 uid="uid://bsfshp321xubw"]
+
+[ext_resource type="Script" path="res://creatures/player/Inventory.gd" id="1_bfm43"]
+[ext_resource type="PackedScene" uid="uid://f77hm2cxgesq" path="res://ui/hotbar/slot.tscn" id="2_57xu6"]
+[ext_resource type="PackedScene" uid="uid://dtysjv240fpfk" path="res://ui/itemTooltip/itemTooltip.tscn" id="3_bj3qi"]
+[ext_resource type="Script" path="res://ui/perks/perkScreen/perkScreen.gd" id="4_1g6so"]
+[ext_resource type="PackedScene" uid="uid://7l4n51sme24" path="res://ui/perks/perkCard/perkCard.tscn" id="5_kbuej"]
+[ext_resource type="Script" path="res://ui/hotbar/hotbar.gd" id="6_1eooh"]
+[ext_resource type="Script" path="res://ui/experienceBar/experienceBar.gd" id="7_ffxi6"]
+[ext_resource type="Script" path="res://ui/equipment.gd" id="8_0845v"]
+[ext_resource type="FontFile" uid="uid://dlj82k0r7e7nq" path="res://assets/ui/Gameplay.ttf" id="8_itd5u"]
+[ext_resource type="Script" path="res://creatures/player/HealthBar.gd" id="9_yhwl6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlwdc"]
+bg_color = Color(0.321569, 0.145098, 0.27451, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02q6n"]
+bg_color = Color(0.6, 0.6, 0.6, 0.270588)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcvc2"]
+bg_color = Color(1, 1, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u7uhx"]
+bg_color = Color(0.921569, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m35gl"]
+bg_color = Color(0, 0.682353, 0.321569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u6vrl"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.878431)
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="ui" type="CanvasLayer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="PerkScreen" type="Panel" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vlwdc")
+script = ExtResource("4_1g6so")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PerkScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 60
+metadata/_edit_use_anchors_ = true
+
+[node name="PerkList" type="HBoxContainer" parent="MarginContainer/PerkScreen/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="PerkCard" parent="MarginContainer/PerkScreen/MarginContainer/PerkList" instance=ExtResource("5_kbuej")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PerkCard2" parent="MarginContainer/PerkScreen/MarginContainer/PerkList" instance=ExtResource("5_kbuej")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PerkCard3" parent="MarginContainer/PerkScreen/MarginContainer/PerkList" instance=ExtResource("5_kbuej")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Status" type="Control" parent="HUD"]
+layout_mode = 1
+anchor_right = 0.399
+anchor_bottom = 0.246
+offset_right = 0.025992
+offset_bottom = -0.0400016
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_1eooh")
+items = Array[Resource("res://items/equipment/equipment.resource.gd")]([null, null, null, null, null, null])
+
+[node name="ExperienceBar" type="ProgressBar" parent="HUD/Status"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1.0
+offset_top = 12.0
+offset_right = 1.0
+offset_bottom = 17.0
+grow_horizontal = 2
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_02q6n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fcvc2")
+value = 50.0
+show_percentage = false
+script = ExtResource("7_ffxi6")
+
+[node name="PlayerLevel" type="Label" parent="HUD/Status/ExperienceBar"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -11.0
+offset_right = 29.0
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+theme_override_fonts/font = ExtResource("8_itd5u")
+theme_override_font_sizes/font_size = 11
+text = "lv. 1
+"
+max_lines_visible = 1
+
+[node name="HealthBar" type="ProgressBar" parent="HUD/Status"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_top = -8.5
+offset_right = 202.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+theme_override_styles/background = SubResource("StyleBoxFlat_u7uhx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_m35gl")
+value = 50.0
+script = ExtResource("9_yhwl6")
+
+[node name="Inventory" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.667
+anchor_top = 0.143
+anchor_right = 0.973
+anchor_bottom = 0.846
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 3
+script = ExtResource("1_bfm43")
+
+[node name="MarginContainer" type="MarginContainer" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Inventory/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u6vrl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Inventory/MarginContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Equipment" type="MarginContainer" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment"]
+layout_mode = 2
+
+[node name="Equipment" type="Control" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("8_0845v")
+
+[node name="Head" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment/HBoxContainer/Equipment" instance=ExtResource("2_57xu6")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -9.5
+offset_top = 4.0
+offset_right = 9.5
+offset_bottom = 23.0
+grow_vertical = 1
+
+[node name="Boots" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment/HBoxContainer/Equipment" instance=ExtResource("2_57xu6")]
+unique_name_in_owner = true
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 51.858
+offset_top = 54.68
+offset_right = 70.858
+offset_bottom = 73.68
+
+[node name="Chest" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment/HBoxContainer/Equipment" instance=ExtResource("2_57xu6")]
+unique_name_in_owner = true
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 47.858
+offset_top = 24.68
+offset_right = 74.858
+offset_bottom = 51.68
+
+[node name="Weapon" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment/HBoxContainer/Equipment" instance=ExtResource("2_57xu6")]
+unique_name_in_owner = true
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 6.858
+offset_top = 9.68
+offset_right = 29.858
+offset_bottom = 34.68
+
+[node name="Ring" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment/HBoxContainer/Equipment" instance=ExtResource("2_57xu6")]
+unique_name_in_owner = true
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 88.858
+offset_top = 9.68
+offset_right = 114.858
+offset_bottom = 34.68
+
+[node name="Gloves" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Equipment/HBoxContainer/Equipment" instance=ExtResource("2_57xu6")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HSeparator" type="HSeparator" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Items" type="MarginContainer" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Slots" type="GridContainer" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 6
+
+[node name="Slot" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot2" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot3" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot4" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot5" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot6" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot7" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot8" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot9" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot10" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot11" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot12" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot13" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot14" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot15" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot16" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot17" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="Slot18" parent="Inventory/MarginContainer/PanelContainer/VBoxContainer/Items/Slots" instance=ExtResource("2_57xu6")]
+layout_mode = 2
+
+[node name="ItemTooltip" parent="." instance=ExtResource("3_bj3qi")]
+unique_name_in_owner = true
+offset_bottom = 640.0

@@ -1,0 +1,116 @@
+[gd_scene load_steps=7 format=3 uid="uid://br4yo0dwtcffb"]
+
+[ext_resource type="Script" path="res://items/equipment/weapons/staffs/staff.gd" id="1_pp7ec"]
+[ext_resource type="Texture2D" uid="uid://dlqwb2m4u0rby" path="res://assets/equipment/weapons/staffs/base_ice_staff.png" id="2_alryp"]
+
+[sub_resource type="Gradient" id="Gradient_2hkhk"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0547445, 0.372263)
+colors = PackedColorArray(0, 0, 0, 1, 0.415686, 0.784314, 0.984314, 1, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_0a73h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_er3ex"]
+resource_name = "attack"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(8.28211, 0.466516, 1),
+"update": 0,
+"values": [Vector2(11, -1), Vector2(28, -6), Vector2(11, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"attack"
+}, {
+"args": [],
+"method": &"enableMovement"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a2hej"]
+_data = {
+"RESET": SubResource("Animation_0a73h"),
+"attack": SubResource("Animation_er3ex")
+}
+
+[node name="Staff" type="Node2D"]
+position = Vector2(8, 0)
+script = ExtResource("1_pp7ec")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(14, -7)
+emitting = false
+one_shot = true
+speed_scale = 5.0
+explosiveness = 1.0
+local_coords = true
+direction = Vector2(1, -1)
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 10.0
+initial_velocity_max = 80.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color = Color(0.415686, 0.784314, 0.984314, 1)
+color_ramp = SubResource("Gradient_2hkhk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(11, -1)
+texture = ExtResource("2_alryp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a2hej")
+}

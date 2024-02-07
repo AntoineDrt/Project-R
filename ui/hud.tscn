@@ -1,0 +1,479 @@
+[gd_scene load_steps=17 format=3 uid="uid://d3mh014oa06o7"]
+
+[ext_resource type="Script" path="res://ui/experienceBar/experienceBar.gd" id="1_4bve1"]
+[ext_resource type="FontFile" uid="uid://dlj82k0r7e7nq" path="res://assets/ui/Gameplay.ttf" id="2_344b7"]
+[ext_resource type="Script" path="res://ui/perks/perkScreen/perkScreen.gd" id="3_6ubuu"]
+[ext_resource type="PackedScene" uid="uid://7l4n51sme24" path="res://ui/perks/perkCard/perkCard.tscn" id="4_bjxvs"]
+[ext_resource type="Script" path="res://ui/inventory/inventory.gd" id="5_wqjfr"]
+[ext_resource type="Texture2D" uid="uid://dtraci1q160ck" path="res://assets/ui/Book/Item or quest book2.png" id="6_7g2rf"]
+[ext_resource type="Script" path="res://ui/hotbar/hotbar.gd" id="7_vcjqn"]
+[ext_resource type="Texture2D" uid="uid://bke57b8o20xyk" path="res://assets/ui/Inventory & chests/2/hotbar frame.png" id="8_xv08i"]
+[ext_resource type="PackedScene" uid="uid://f77hm2cxgesq" path="res://ui/hotbar/slot.tscn" id="9_e3ski"]
+[ext_resource type="Texture2D" uid="uid://b5oyj5wbgfvrm" path="res://assets/equipment/weapons/swords/sword.png" id="10_2r3gr"]
+[ext_resource type="Script" path="res://items/equipment/equipment.resource.gd" id="11_h2rjo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02q6n"]
+bg_color = Color(0.6, 0.6, 0.6, 0.270588)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcvc2"]
+bg_color = Color(1, 1, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlwdc"]
+bg_color = Color(0.321569, 0.145098, 0.27451, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0ubp"]
+draw_center = false
+
+[sub_resource type="Resource" id="Resource_k5nea"]
+script = ExtResource("11_h2rjo")
+appearance = ExtResource("10_2r3gr")
+damage = 50.0
+armor = 0.0
+magicResistance = 0.0
+attackSpeed = 1.0
+movementSpeed = 0.0
+criticalChance = 0.0
+cooldownReduction = 0.0
+acceleration = 0.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="ExperienceBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10, 5)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_02q6n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fcvc2")
+value = 50.0
+show_percentage = false
+script = ExtResource("1_4bve1")
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerLevel" type="Label" parent="MarginContainer/VBoxContainer/ExperienceBar"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -16.0
+offset_right = 29.0
+offset_bottom = -4.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_344b7")
+theme_override_font_sizes/font_size = 11
+text = "lv. 1
+"
+max_lines_visible = 1
+
+[node name="PerkScreen" type="Panel" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vlwdc")
+script = ExtResource("3_6ubuu")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PerkScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 60
+metadata/_edit_use_anchors_ = true
+
+[node name="PerkList" type="HBoxContainer" parent="MarginContainer/PerkScreen/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="PerkCard" parent="MarginContainer/PerkScreen/MarginContainer/PerkList" instance=ExtResource("4_bjxvs")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PerkCard2" parent="MarginContainer/PerkScreen/MarginContainer/PerkList" instance=ExtResource("4_bjxvs")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PerkCard3" parent="MarginContainer/PerkScreen/MarginContainer/PerkList" instance=ExtResource("4_bjxvs")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Inventory" type="Node2D" parent="."]
+position = Vector2(502, 150)
+script = ExtResource("5_wqjfr")
+
+[node name="TextureRect" type="TextureRect" parent="Inventory"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -80.0
+offset_right = 115.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_7g2rf")
+
+[node name="GridContainer" type="GridContainer" parent="Inventory/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 126.0
+offset_top = 14.0
+offset_right = -18.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 5
+
+[node name="Panel" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel2" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel3" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel4" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel5" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel6" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel7" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel8" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel9" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel10" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel11" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel12" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel13" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel14" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel15" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel16" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel17" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel18" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel19" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel20" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel21" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel22" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel23" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel24" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel25" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel26" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel27" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel28" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel29" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel30" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel31" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel32" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel33" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel34" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel35" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel36" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel37" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel38" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel39" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Panel40" type="Panel" parent="Inventory/TextureRect/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0ubp")
+
+[node name="Hotbar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_vcjqn")
+items = Array[ExtResource("11_h2rjo")]([null, null, null, null, null, null])
+
+[node name="TextureRect" type="TextureRect" parent="Hotbar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -96.0
+offset_right = 146.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("8_xv08i")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="Hotbar/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 15
+
+[node name="Slots" type="HBoxContainer" parent="Hotbar/TextureRect/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Slot" parent="Hotbar/TextureRect/MarginContainer/Slots" instance=ExtResource("9_e3ski")]
+layout_mode = 2
+size_flags_horizontal = 3
+slotItem = SubResource("Resource_k5nea")
+
+[node name="Slot2" parent="Hotbar/TextureRect/MarginContainer/Slots" instance=ExtResource("9_e3ski")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot3" parent="Hotbar/TextureRect/MarginContainer/Slots" instance=ExtResource("9_e3ski")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot4" parent="Hotbar/TextureRect/MarginContainer/Slots" instance=ExtResource("9_e3ski")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot5" parent="Hotbar/TextureRect/MarginContainer/Slots" instance=ExtResource("9_e3ski")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot6" parent="Hotbar/TextureRect/MarginContainer/Slots" instance=ExtResource("9_e3ski")]
+layout_mode = 2
+size_flags_horizontal = 3

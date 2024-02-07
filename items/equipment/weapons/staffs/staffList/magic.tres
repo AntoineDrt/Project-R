@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="StaffResource" load_steps=7 format=3 uid="uid://b2drkcotxa8o8"]
+
+[ext_resource type="Resource" uid="uid://druj8dbvyom4x" path="res://items/equipment/weapons/bullets/bulletsList/basic.tres" id="1_1bca2"]
+[ext_resource type="Texture2D" uid="uid://dlqwb2m4u0rby" path="res://assets/equipment/weapons/staffs/base_ice_staff.png" id="1_rntvp"]
+[ext_resource type="PackedScene" uid="uid://br4yo0dwtcffb" path="res://items/equipment/weapons/staffs/staff.tscn" id="2_hpjur"]
+[ext_resource type="Script" path="res://items/equipment/weapons/staffs/staff.resource.gd" id="3_pgfl2"]
+[ext_resource type="Script" path="res://creatures/stats.resource.gd" id="5_uqlju"]
+
+[sub_resource type="Resource" id="Resource_ic8hy"]
+script = ExtResource("5_uqlju")
+damage = 40.0
+armor = 0.0
+magicResistance = 0.0
+attackSpeed = 10.0
+movementSpeed = 0.0
+criticalChance = 50.0
+cooldownReduction = 0.0
+acceleration = 0.0
+
+[resource]
+script = ExtResource("3_pgfl2")
+projectile = ExtResource("1_1bca2")
+projectilesNumber = 1
+scene = ExtResource("2_hpjur")
+stats = SubResource("Resource_ic8hy")
+type = 0
+isEquiped = false
+name = "Magic Staff"
+sprite = ExtResource("1_rntvp")
+description = "That's a magic staff"

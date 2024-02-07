@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="DuplicateBullet" load_steps=2 format=3 uid="uid://c5k8fs12k1myi"]
+
+[ext_resource type="Script" path="res://upgrades/upgradeList/triggerEffects/duplicate/duplicate.resource.gd" id="1_tw44t"]
+
+[resource]
+script = ExtResource("1_tw44t")
